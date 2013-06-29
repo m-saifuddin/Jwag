@@ -1,0 +1,70 @@
+
+package ${packageName};
+
+import java.util.List;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+import sun.beans.editors.IntEditor;
+
+import javax.servlet.http.HttpServletRequest;
+
+import ${projectPackage}.bean.${beanName};
+import ${projectPackage}.dao.${daoName};
+
+#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnJavaType} == "Date")
+import java.text.SimpleDateFormat;
+import java.util.Date;
+#end#end
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+ 
+public class ${controllerName} extends SimpleFormController {
+	
+	${daoName} ${daoObj};
+	
+	public ${controllerName} () {
+	
+		setCommandClass(${projectPackage}.bean.${beanName}.class);
+		setCommandName("record");
+		setSuccessView("${beanName}_list");
+		setFormView("${beanName}_add");
+	
+	}
+	
+	@Override
+	public void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
+	
+		 binder.registerCustomEditor(Integer.class, new IntEditor());
+#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnJavaType} == "Date")
+		 binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true));
+	#end#end }
+	
+	/* this method calling a insert${beanName} dao method for insert record
+	 * based on command Object and calling another mehtod getList${beanName} of dao
+	 * get retrieve the list and forward to getSuccessView page with  
+	 * returned list 
+	 */
+
+	public ModelAndView onSubmit(Object command) throws Exception {
+	
+		${beanName} ${beanObj} = (${beanName})command;
+		${daoObj}.insert${beanName}(${beanObj});
+		List<${beanName}> records = ${daoObj}.getList${beanName}();
+				
+		return new ModelAndView(getSuccessView(),"record",records);
+	}
+
+	/**
+	 * @param ${daoObj} the ${daoObj} to set
+	 */
+	public void set${daoName}(${daoName} ${daoObj}) {
+		this.${daoObj} = ${daoObj};
+	}
+
+}
+

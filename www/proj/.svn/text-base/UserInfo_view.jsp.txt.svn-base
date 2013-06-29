@@ -1,0 +1,89 @@
+<%@ page session="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>UserInfo_view</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<script language ="javascript">
+function list(){
+
+	var method = "listUserInfo";
+	document.viewForm.action = "UserInfo_list.htm?action="+method;
+	document.viewForm.submit();
+}
+</script>
+</head>
+<body>
+<div id="header">
+	<h3>My Spring Application</h3>
+	<h2><a href="http://www.springframework.org">springframework.org</a></h2>
+</div>
+<div id="content">
+<div id="posts">
+				<div class="post">
+			<h2 class="title">UserInfo_view</h2>
+			<div class="story">
+<form name="viewForm" action="" method="post">
+  <table cellspacing="0" cellpadding="0" border="0" width="100%">
+	<tr>
+		<td> &nbsp;</td>
+      	<td><b>id</b></td>
+      	<td><c:out value="${record.id}"/></td>
+    	</tr>
+
+	<tr>
+		<td> &nbsp;</td>
+      	<td><b>user_name</b></td>
+      	<td><c:out value="${record.user_name}"/></td>
+    	</tr>
+	<tr>
+		<td> &nbsp;</td>
+      	<td><b>user_address</b></td>
+      	<td><c:out value="${record.user_address}"/></td>
+    	</tr>
+	<tr>
+		<td> &nbsp;</td>
+      	<td><b>user_email</b></td>
+      	<td><c:out value="${record.user_email}"/></td>
+    	</tr>
+	<tr>
+		<td> &nbsp;</td>
+      	<td><b>user_contact</b></td>
+      	<td><c:out value="${record.user_contact}"/></td>
+    	</tr>
+	<tr>
+		<td> &nbsp;</td>
+      	<td><b>user_dof</b></td>
+      	<td><c:out value="${record.user_dof}"/></td>
+    	</tr>
+	<tr>
+		<td> &nbsp;</td>
+      	<td><b>balance</b></td>
+      	<td><c:out value="${record.balance}"/></td>
+    	</tr>
+	<tr>
+		<td> &nbsp;</td>
+      	<td><b>user_password</b></td>
+      	<td><c:out value="${record.user_password}"/></td>
+    	</tr>
+	<tr>
+		<td> &nbsp;</td>
+      	<td><b>user_id</b></td>
+      	<td><c:out value="${record.user_id}"/></td>
+    	</tr>
+  </table>
+<br />
+<table><tr></tr>
+<tr>
+
+ <td> <input type="button" name="btnList" value="Back to List"  onclick="list();"/></td>
+</tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/jwag/!svn/ver/10/trunk/www/proj
+END
+index.jsp.txt
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/jwag/!svn/ver/10/trunk/www/proj/index.jsp.txt
+END
+UserInfoRowMapper.java.txt
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfoRowMapper.java.txt
+END
+UserInfoEditFormController.java.txt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfoEditFormController.java.txt
+END
+UserInfo.java.txt
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfo.java.txt
+END
+UserInfoAddFormController.java.txt
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfoAddFormController.java.txt
+END
+UserInfoActionController.java.txt
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfoActionController.java.txt
+END
+web.xml.txt
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/jwag/!svn/ver/10/trunk/www/proj/web.xml.txt
+END
+MySpringApplication-servlet.xml.txt
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/jwag/!svn/ver/10/trunk/www/proj/MySpringApplication-servlet.xml.txt
+END
+UserInfo_view.jsp.txt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfo_view.jsp.txt
+END
+UserInfoDaoImpl.java.txt
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfoDaoImpl.java.txt
+END
+UserInfo_list.jsp.txt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfo_list.jsp.txt
+END
+UserInfo_edit.jsp.txt
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfo_edit.jsp.txt
+END
+UserInfoMappingSqlQuery.java.txt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfoMappingSqlQuery.java.txt
+END
+UserInfo_add.jsp.txt
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfo_add.jsp.txt
+END
+UserInfoDao.java.txt
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/jwag/!svn/ver/10/trunk/www/proj/UserInfoDao.java.txt
+END

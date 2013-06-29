@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<%@ page session="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>${jspName}</title>
+<script language ="javascript">
+
+function add(){
+
+	alert('add function');
+	document.listForm.method ="GET";
+	document.listForm.action = "UserInfo_add.htm";
+	document.listForm.submit();
+}
+
+function modify(){
+
+	var n = new Number();
+	var boolFlag = false;
+	n = document.listForm.box.length;
+
+				if(n>1) {
+					var counter =0;
+		  		  		for (var i=0;i<n;i++)
+				  		{
+				  			if(document.listForm.box[i].checked == true){
+					  			counter = counter++;
+						  		
+									if(counter >1){
+										alert('select only one record');
+										return;
+									} else{
+										boolFlag = true;
+										break;
+						  			}
+							}else{ }//else
+				  		}//for
+				}else{
+			  			if(document.listForm.box.checked == 1){
+						  	boolFlag = true;
+			  			}//if
+
+				}//else
+
+				if(boolFlag)
+				{
+						alert('inside modify');
+						document.listForm.method = "GET";
+						document.listForm.action = "UserInfo_edit.htm";
+						document.listForm.submit();
+
+				} else{
+					alert("Please select at least one personnel");
+			}//else
+	
+}//modify
+
+function dodelete(){
+
+	var n = new Number();
+	var boolFlag = false;
+	n = document.listForm.box.length;
+	
+				if(n>1) {
+					var counter =0;
+		  		  		for (var i=0;i<n;i++)
+				  		{
+				  			if(document.listForm.box[i].checked == true){
+					  			counter = counter++;
+						  		
+									if(counter >1){
+										alert('select only one record');
+										return;
+									} else{
+										boolFlag = true;
+										break;
+						  			}
+							}else{ }//else
+				  		}//for
+				}else{
+			  			if(document.listForm.box.checked == 1){
+						  	boolFlag = true;
+			  			}//if
+
+				}//else
+
+				if(boolFlag)
+				{
+					if(confirm("The record will permanently be deleted. Are you sure you want to delete")){
+
+						var method = "deleteUserInfo";
+						document.listForm.action = "UserInfo_list.htm?action="+method;
+						document.listForm.submit();
+					}
+
+				} else{
+					alert("Please select at least one personnel");
+			}//else
+}//dodelete
+
+
+function view(){
+	
+	var n = new Number();
+	var boolFlag = false;
+	n = document.listForm.box.length;
+	
+			if(n>1) {
+					var counter =0;
+		  		  		for (var i=0;i<n;i++)
+				  		{
+				  			if(document.listForm.box[i].checked == true){
+					  			counter = counter++;
+						  		
+									if(counter >1){
+										alert('select only one record');
+										return;
+									} else{
+										boolFlag = true;
+										break;
+						  			}
+							}else{ }//else
+				  		}//for
+			}else{
+			  		if(document.listForm.box.checked == 1){
+						  	boolFlag = true;
+			  		}//if
+
+			}//else
+
+				if(boolFlag)
+				{
+						var method = "viewUserInfo";
+						document.listForm.action = "UserInfo_view.htm?action="+method;
+						document.listForm.submit();
+						
+				} else{
+					alert("Please select at least one personnel");
+			}//else
+}//view
+</script>
+</head>
+<body>
+
+	<h3>My Spring Application</h3><br/><br/>
+	<h2><a href="http://www.springframework.org">springframework.org</a></h2><br/><br/>
+
+
+			<h2 class="title">MySpringApplication:Index</h2><br/>
+			<ul>
+  			  <li><a href ="<c:url value="UserInfo_list.htm"><c:param name="action" value="listUserInfo"/></c:url>"> UserInfo </a></li>
+ 			 </ul>
+
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+ "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- Author : Muhammad Saifuddin -->
+<!-- This is an applicationContext file that is referenced from the Spring DispatcherServlet.servlet.vm -->
+
+<beans>
+
+  <!-- dao definitions { place this code into your Application Context file } -->  
+
+  <bean id="userInfoDao" class="com.project.dao.UserInfoDaoImpl">
+
+    <!-- Inject DataSource and JdbcTemplate into DAO -->
+
+        <property name ="dataSource"> 
+		<ref bean="dataSource"/> 
+	  </property>
+	  <property name ="jdbcTemplate"> 
+		<ref bean ="jdbcTemplate"/>
+	  </property>
+
+  </bean>
+
+
+  <!-- controller definitions { place this code into your Application Context file } -->
+
+		<bean id="userInfoEditFormController" class="com.project.web.UserInfoEditFormController">
+		<!-- Inject Dao Object into Controller -->
+
+		<property name = "userInfoDao">
+			<ref bean = "userInfoDao"/>
+		</property>
+
+  	</bean>
+	  
+	<bean id="userInfoAddFormController" class="com.project.web.UserInfoAddFormController">
+ 		<!-- Inject Dao Object into Controller -->
+
+		<property name = "userInfoDao">
+			<ref bean = "userInfoDao"/>
+		</property>
+
+  	</bean>
+		<bean id="userInfoActionController" class="com.project.web.UserInfoActionController">
+	
+	<!-- Inject MethodNameResolver into userInfoActionController -->
+
+		<property name="methodNameResolver">
+ 	  		<ref bean = "methodNameResolver"/>
+    	</property>
+	<!-- Inject Dao Object into Controller -->
+
+		<property name = "userInfoDao">
+			<ref bean = "userInfoDao"/>
+		</property>
+
+  	</bean>
+	
+<!-- controller mapping definitions -->
+<!-- { place all these prop declaration into your Application Context file under props element }  -->
+
+  <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <property name="mappings">
+      <props>
+  		<prop key="/UserInfo_list.htm">userInfoActionController</prop>
+		<prop key="/UserInfo_view.htm">userInfoActionController</prop>
+		<prop key="/UserInfo_edit.htm">userInfoEditFormController</prop>
+		<prop key="/UserInfo_add.htm">userInfoAddFormController</prop>
+		</props>
+    </property>
+  </bean>
+
+<!-- view Resolver definition -->
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name ="viewClass">
+		<value>org.springframework.web.servlet.view.JstlView</value>
+	</property>
+	<property name="prefix">
+		<value>/WEB-INF/jsp/</value>
+	</property>
+    	<property name="suffix">
+		<value>.jsp</value>
+	</property>
+  </bean>
+  
+<!-- Spring jdbcTemplate initialization -->
+
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+
+		<property name="dataSource"> 
+			<ref bean="dataSource" />
+		</property>
+
+  </bean>
+  
+  <!-- Spring dataSource initialization with its properties -->
+
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    <property name="url" value="jdbc:mysql://localhost/sample_db"/>
+    <property name="username" value="root"/>
+    <property name="password" value="mysql"/>
+  </bean>
+
+<!-- initialization of ParameterMethodNameResolver with the name of MethodNameResolver for MultiActionController -->
+
+  <bean id="methodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="defaultMethodName" value="listUserInfo"></property>
+  </bean>
+
+
+</beans>

@@ -1,0 +1,33 @@
+
+package com.project.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.springframework.jdbc.core.RowMapper;
+import com.project.bean.UserInfo;
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+
+public class UserInfoRowMapper implements RowMapper {
+
+	public Object mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+	
+		UserInfo userInfo = new UserInfo();
+	
+				userInfo.setId(resultSet.getInt("id"));
+			userInfo.setUser_name(resultSet.getString("user_name"));
+			userInfo.setUser_address(resultSet.getString("user_address"));
+			userInfo.setUser_email(resultSet.getString("user_email"));
+			userInfo.setUser_contact(resultSet.getString("user_contact"));
+			userInfo.setUser_dof(resultSet.getDate("user_dof"));
+			userInfo.setBalance(resultSet.getInt("balance"));
+			userInfo.setUser_password(resultSet.getString("user_password"));
+			userInfo.setUser_id(resultSet.getInt("user_id"));
+
+
+	return userInfo;
+	}
+}

@@ -1,0 +1,101 @@
+package ${packageName};
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.multiaction.MethodNameResolver;
+import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+import org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver;
+import ${projectPackage}.bean.${beanName};
+import ${projectPackage}.dao.${daoName};
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+
+public class ${controllerName} extends MultiActionController {
+	
+	private ${daoName} ${daoObj};
+	private ParameterMethodNameResolver methodNameResolver;
+	
+	/**
+ 	 * view${beanName} is using for calling get${beanName} method of ${beanName}Dao 
+ 	 * to retrieve the single record from the database
+ 	 * based on the Id field inside the table.
+ 	 * and finally foward to ${beanName}_view page with return single record 
+ 	 */
+	public ModelAndView view${beanName}(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+		${beanName} ${beanObj};
+		int id = 0;
+		
+		if (request.getParameterValues("box") != null) {
+
+			String[] checkbox = request.getParameterValues("box");
+			id = Integer.parseInt(checkbox[0]);
+		}
+
+		${beanObj} = ${daoObj}.get${beanName}(id);
+		
+		return new ModelAndView("${beanName}_view","record",${beanObj});
+	}
+	/*
+	 * delete${beanName} is calling Dao delete${beanName} method
+	 * to delete the single record in database
+ 	 * based on the Id field inside the table.
+ 	 * and finally calling getList${beanName}method of ${beanName}Dao
+ 	 * to retrieve the list of record from the database
+ 	 * and forward to ${beanName}_list page with return list  
+ 	 */
+	public ModelAndView delete${beanName}(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+		${beanName} ${beanObj};
+		String id = "";
+		
+		if (request.getParameterValues("box") != null) {
+
+			String[] checkbox = request.getParameterValues("box");
+			id = checkbox[0];
+		}
+
+		${daoObj}.delete${beanName}(id);
+		
+		List<${beanName}> ${beanObj}List = ${daoObj}.getList${beanName}();
+		
+		return new ModelAndView("${beanName}_list","record",${beanObj}List);
+	}
+	
+	/**
+ 	 * list${beanName} is calling getList${beanName} method of ${beanName}Dao
+ 	 * to retrieve the list of record from the database
+ 	 * and forward to ${beanName}_list page with return list 
+ 	 */
+
+	public ModelAndView list${beanName}(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+		List<${beanName}> ${beanObj}List = ${daoObj}.getList${beanName}();
+		
+		return new ModelAndView("${beanName}_list","record",${beanObj}List);
+	}
+	
+	/**
+	 * @param ${daoObj} the ${daoObj} to set
+	 */
+	public void set${daoName}(${daoName} ${daoObj}) {
+	
+		this.${daoObj} = ${daoObj};
+
+	}
+	
+	/**
+	 * @param methodNameResolver the methodNameResolver to set
+	 */
+	public void setMethodNameResolver(ParameterMethodNameResolver methodNameResolver) {
+
+		this.methodNameResolver = methodNameResolver;
+	}
+}
+

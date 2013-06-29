@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC '-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN' 'http://java.sun.com/dtd/web-app_2_3.dtd'>
+<!-- Author : Muhammad Saifuddin -->
+<!-- This is an web.xml file that is referenced from the webXml.vm -->
+
+<web-app>
+
+  <servlet>
+    <servlet-name>MySpringApplication</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+<!-- mapping declaration to map each and every .htm request forward to MySpringApplication DispatcherServlet -->
+  <servlet-mapping>
+    <servlet-name>MySpringApplication</servlet-name>
+    <url-pattern>*.htm</url-pattern>
+  </servlet-mapping>
+
+<welcome-file-list>
+    <welcome-file>
+      index.jsp
+    </welcome-file>
+  </welcome-file-list>
+
+<!-- spring tag library declaration place your spring.tld file inside WEB-INF folder -->
+<taglib>
+    <taglib-uri>/spring</taglib-uri>
+    <taglib-location>/WEB-INF/spring.tld</taglib-location>
+  </taglib>
+
+</web-app>

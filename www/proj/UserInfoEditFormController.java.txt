@@ -1,0 +1,71 @@
+
+package com.project.web;
+
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+import sun.beans.editors.IntEditor;
+import javax.servlet.http.HttpServletRequest;
+import com.project.bean.UserInfo;
+import com.project.dao.UserInfoDao;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+
+public class UserInfoEditFormController extends SimpleFormController {
+	
+	UserInfoDao userInfoDao;
+
+	public UserInfoEditFormController () {
+	
+		setCommandClass(com.project.bean.UserInfo.class);
+		setCommandName("record");
+		setSuccessView("UserInfo_view");
+		setFormView("UserInfo_edit");
+	}
+	
+	@Override
+	public void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
+	
+		 binder.registerCustomEditor(Integer.class, new IntEditor());
+		 binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true));
+	}
+	
+	public ModelAndView onSubmit(Object command) throws Exception {
+	
+		UserInfo userInfo = (UserInfo)command;
+		userInfoDao.updateUserInfo( userInfo );
+		userInfo = userInfoDao.getUserInfo( userInfo.getId());
+				
+		return new ModelAndView(getSuccessView(),"record",userInfo);
+	}
+	
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+
+		int id = 0;
+	
+		if (request.getParameterValues("box") != null) {
+			String[] checkbox = request.getParameterValues("box");
+			id = Integer.parseInt(checkbox[0]);
+
+		}
+
+		UserInfo record = userInfoDao.getUserInfo(id);
+
+	return record;
+	
+	}
+	
+	public void setUserInfoDao(UserInfoDao userInfoDao) {
+	
+		this.userInfoDao = userInfoDao;
+
+	}
+}

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen
+END
+ApplicationContextGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen/ApplicationContextGenerator.java
+END
+TemplateEngineUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen/TemplateEngineUtil.java
+END
+TemplateEngine.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen/TemplateEngine.java
+END
+JspGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen/JspGenerator.java
+END
+WebXmlGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen/WebXmlGenerator.java
+END
+ControllerGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen/ControllerGenerator.java
+END
+DaoGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen/DaoGenerator.java
+END
+IndexJspGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen/IndexJspGenerator.java
+END
+BeanGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/jwag/!svn/ver/7/trunk/src/com/jwag/gen/BeanGenerator.java
+END

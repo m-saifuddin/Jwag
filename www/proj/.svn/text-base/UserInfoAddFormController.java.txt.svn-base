@@ -1,0 +1,61 @@
+
+package com.project.web;
+
+import java.util.List;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+import sun.beans.editors.IntEditor;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.project.bean.UserInfo;
+import com.project.dao.UserInfoDao;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+ 
+public class UserInfoAddFormController extends SimpleFormController {
+	
+	UserInfoDao userInfoDao;
+	
+	public UserInfoAddFormController () {
+	
+		setCommandClass(com.project.bean.UserInfo.class);
+		setCommandName("record");
+		setSuccessView("UserInfo_list");
+		setFormView("UserInfo_add");
+	
+	}
+	
+	@Override
+	public void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
+	
+		 binder.registerCustomEditor(Integer.class, new IntEditor());
+		 binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true));
+	 }
+
+	public ModelAndView onSubmit(Object command) throws Exception {
+	
+		UserInfo userInfo = (UserInfo)command;
+		userInfoDao.insertUserInfo(userInfo);
+		List<UserInfo> records = userInfoDao.getListUserInfo();
+				
+		return new ModelAndView(getSuccessView(),"record",records);
+	}
+
+	/**
+	 * @param userInfoDao the userInfoDao to set
+	 */
+	public void setUserInfoDao(UserInfoDao userInfoDao) {
+		this.userInfoDao = userInfoDao;
+	}
+
+}
+

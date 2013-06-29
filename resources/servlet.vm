@@ -1,0 +1,95 @@
+## $Id: springApplicationContext.vm,v 1.1.1.1 2007/07/12 06:33:08 spal Exp $
+## $Source: /cvsroot/autocrud/autocrud/src/main/resources/velocity/springApplicationContext.vm,v $
+## Template for generating the applicationContext file that is referenced
+## from the Spring DispatcherServlet.
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+ "http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- Author : Muhammad Saifuddin-->
+<!-- This is an applicationContext file that is referenced from the Spring DispatcherServlet.servlet.vm -->
+
+<beans>
+
+  <!-- dao definitions -->  
+ 
+  <bean id="${daoObj}" class="${projectPackage}.dao.${daoImplName}">
+    
+        <property name ="dataSource"> 
+		<ref bean="dataSource"/> 
+	  </property>
+	  <property name ="jdbcTemplate"> 
+		<ref bean ="jdbcTemplate"/>
+	  </property>
+
+  </bean>
+
+
+  <!-- controller definitions -->
+#foreach ($contrName in ${controllerName})
+
+	#if($contrName == "${beanName}AddFormController")
+  
+	<bean id="${beanObj}AddFormController" class="${projectPackage}.web.${contrName}">
+ 	#elseif($contrName == "${beanName}EditFormController")
+	<bean id="${beanObj}EditFormController" class="${projectPackage}.web.${contrName}">
+	#elseif($contrName == "${beanName}ActionController")
+	<bean id="${beanObj}ActionController" class="${projectPackage}.web.${contrName}">
+	
+		<property name="methodNameResolver">
+ 	  		<ref bean = "methodNameResolver"/>
+    	</property>
+#end
+	
+		<property name = "${daoObj}">
+			<ref bean = "${daoObj}"/>
+		</property>
+
+  	</bean>#end
+	
+  <!-- controller mappings -->
+  <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <property name="mappings">
+      <props>
+  		#foreach($jspname in ${jspname})#if($jspname == "${beanName}_edit")<prop key="/${jspname}.htm">${beanObj}EditFormController</prop>
+		#elseif($jspname == "${beanName}_add")<prop key="/${jspname}.htm">${beanObj}AddFormController</prop>
+		#elseif($jspname == "${beanName}_view")<prop key="/${jspname}.htm">${beanObj}ActionController</prop>
+		#elseif($jspname == "${beanName}_list")<prop key="/${jspname}.htm">${beanObj}ActionController</prop>
+		#end#end</props>
+    </property>
+  </bean>
+
+  <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name ="viewClass">
+		<value>org.springframework.web.servlet.view.JstlView</value>
+	</property>
+	<property name="prefix">
+		<value>/WEB-INF/jsp/</value>
+	</property>
+    	<property name="suffix">
+		<value>.jsp</value>
+	</property>
+  </bean>
+  
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+
+		<property name="dataSource"> 
+			<ref bean="dataSource" />
+		</property>
+
+  </bean>
+  
+  <!-- database stuff -->
+
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="${dataSource.driverClassName}"/>
+    <property name="url" value="${dataSource.url}"/>
+    <property name="username" value="${dataSource.username}"/>
+    <property name="password" value="${dataSource.password}"/>
+  </bean>
+
+  <bean id="methodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+		<property name="defaultMethodName" value="list${beanName}"></property>
+  </bean>
+
+
+</beans>

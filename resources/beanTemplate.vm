@@ -1,0 +1,35 @@
+
+package ${packageName};
+#foreach ($Column_Detail in ${Column_Details})
+#if(${Column_Detail.columnJavaType} == "Date")
+import java.util.Date;
+#end#end
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+public class ${beanName} {
+
+#foreach ($Column_Detail in ${Column_Details})
+      private ${Column_Detail.columnJavaType} ${Column_Detail.columnName};
+#end
+
+#foreach ($Column_Detail in ${Column_Details})
+ 
+ /**
+  * @param ${Column_Detail.columnName} the ${Column_Detail.columnName} to set
+  */
+  public void set${Column_Detail.columnJavaName}(${Column_Detail.columnJavaType} ${Column_Detail.columnName}) {
+
+	this.${Column_Detail.columnName} = ${Column_Detail.columnName};
+  }
+
+ /**
+  * @return the ${Column_Detail.columnName}
+  */
+  public ${Column_Detail.columnJavaType} get${Column_Detail.columnJavaName}() {
+
+	return ${Column_Detail.columnName};
+  }#end
+
+}

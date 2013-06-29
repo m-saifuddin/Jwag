@@ -1,0 +1,21 @@
+package ${packageName};
+
+import ${projectPackage}.bean.${beanName};
+import java.util.List;
+
+public interface ${beanName}Dao{
+
+	
+	public ${beanName} insert${beanName} ( ${beanName} ${beanObj} )throws Exception;
+	
+	public void update${beanName} (${beanName} ${beanObj})throws Exception;
+	
+	public void delete${beanName} (String id);
+	
+	public List<${beanName}> getList${beanName}();
+	
+	public ${beanName} get${beanName}(int id);
+	
+}
+	
+	

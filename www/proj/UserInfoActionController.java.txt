@@ -1,0 +1,86 @@
+package com.project.web;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.multiaction.MethodNameResolver;
+import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+import org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver;
+import com.project.bean.UserInfo;
+import com.project.dao.UserInfoDao;
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+
+public class UserInfoActionController extends MultiActionController {
+	
+	private UserInfoDao userInfoDao;
+	private ParameterMethodNameResolver methodNameResolver;
+	
+	/**
+ 	 * viewUserInfo is using for calling Dao (UserInfoDao) to retrieve the single record from the database
+ 	 * based on the Id field inside the table. 
+ 	 */
+	public ModelAndView viewUserInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+		UserInfo userInfo;
+		int id = 0;
+		
+		if (request.getParameterValues("box") != null) {
+
+			String[] checkbox = request.getParameterValues("box");
+			id = Integer.parseInt(checkbox[0]);
+		}
+
+		userInfo = userInfoDao.getUserInfo(id);
+		
+		return new ModelAndView("UserInfo_view","record",userInfo);
+	}
+
+	public ModelAndView deleteUserInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+		UserInfo userInfo;
+		String id = "";
+		
+		if (request.getParameterValues("box") != null) {
+
+			String[] checkbox = request.getParameterValues("box");
+			id = checkbox[0];
+		}
+
+		userInfoDao.deleteUserInfo(id);
+		
+		List<UserInfo> userInfoList = userInfoDao.getListUserInfo();
+		
+		return new ModelAndView("UserInfo_list","record",userInfoList);
+	}
+
+	public ModelAndView listUserInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+		List<UserInfo> userInfoList = userInfoDao.getListUserInfo();
+		
+		return new ModelAndView("UserInfo_list","record",userInfoList);
+	}
+	
+	/**
+	 * @param userInfoDao the userInfoDao to set
+	 */
+	public void setUserInfoDao(UserInfoDao userInfoDao) {
+	
+		this.userInfoDao = userInfoDao;
+
+	}
+	
+	/**
+	 * @param methodNameResolver the methodNameResolver to set
+	 */
+	public void setMethodNameResolver(ParameterMethodNameResolver methodNameResolver) {
+
+		this.methodNameResolver = methodNameResolver;
+	}
+}
+

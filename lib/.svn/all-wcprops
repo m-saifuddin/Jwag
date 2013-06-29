@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/jwag/!svn/ver/7/trunk/lib
+END
+velocity-dep-1.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/jwag/!svn/ver/7/trunk/lib/velocity-dep-1.5.jar
+END
+commons-lang-2.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/jwag/!svn/ver/7/trunk/lib/commons-lang-2.1.jar
+END
+AbsoluteLayout.jar
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/jwag/!svn/ver/7/trunk/lib/AbsoluteLayout.jar
+END
+swing-layout-1.0.jar
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/jwag/!svn/ver/7/trunk/lib/swing-layout-1.0.jar
+END
+velocity-1.5.jar
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/jwag/!svn/ver/7/trunk/lib/velocity-1.5.jar
+END
+commons-io.jar
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/jwag/!svn/ver/7/trunk/lib/commons-io.jar
+END
+mysql-connector-java-3.1.12-bin.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/jwag/!svn/ver/7/trunk/lib/mysql-connector-java-3.1.12-bin.jar
+END

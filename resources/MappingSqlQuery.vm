@@ -1,0 +1,45 @@
+package ${packageName};
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import javax.sql.DataSource;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.object.MappingSqlQuery;
+import ${projectPackage}.bean.${beanName};
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+ 
+public class ${daoName} extends MappingSqlQuery {
+
+	public ${daoName} (DataSource datasource) {
+	
+		super(datasource, "SELECT * FROM ${tableName} WHERE #foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}=="id" || ${columnDetail.columnName}=="ID") ${columnDetail.columnName}#end#end = ?");
+	
+		super.declareParameter(new SqlParameter("#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}=="id" || ${columnDetail.columnName}=="ID")${columnDetail.columnName}",Types.#end#foreach($mapValue in ${columnTypelist})#if(${columnDetail.columnName}=="id" || ${columnDetail.columnName}=="ID")#if(${mapValue.containsKey(${columnDetail.columnName})})${mapValue.get(${columnDetail.columnName})}#end#end#end#end));
+	
+		compile();
+
+	}
+
+	@Override
+	protected Object mapRow(ResultSet resultSet, int rowCount) throws SQLException {
+
+		${beanName} ${beanObj} = new ${beanName}();
+
+	#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnJavaType} == "Integer")
+		${beanObj}.set${columnDetail.columnJavaName}(resultSet.getInt("${columnDetail.columnName}"));
+	#else
+		${beanObj}.set${columnDetail.columnJavaName}(resultSet.get${columnDetail.columnJavaType}("${columnDetail.columnName}"));
+	#end#end
+
+	return ${beanObj};
+	
+	}
+}
+
+ 
+	

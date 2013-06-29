@@ -1,0 +1,114 @@
+package com.project.dao;
+
+import java.sql.Types;
+import java.util.List;
+import javax.sql.DataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import com.project.bean.UserInfo;
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+ 
+public class UserInfoDaoImpl implements UserInfoDao {
+
+	private JdbcTemplate jdbcTemplate;
+	private DataSource dataSource;
+	
+	public UserInfo insertUserInfo(UserInfo userInfo) throws Exception{
+	
+		String query = "INSERT INTO user_info ( user_name, user_address, user_email, user_contact, user_dof, balance, user_password, user_id )VALUES(  ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		Object args[] = new Object[8];
+		args[0] = userInfo.getUser_name(); 
+		args[1] = userInfo.getUser_address(); 
+		args[2] = userInfo.getUser_email(); 
+		args[3] = userInfo.getUser_contact(); 
+		args[4] = userInfo.getUser_dof(); 
+		args[5] = userInfo.getBalance(); 
+		args[6] = userInfo.getUser_password(); 
+		args[7] = userInfo.getUser_id(); 
+	
+		int types[] = new int[]{ Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DATE, Types.INTEGER, Types.VARCHAR, Types.INTEGER };
+
+		jdbcTemplate.update(query, args, types);
+
+	return userInfo;
+
+	}
+
+	public void updateUserInfo(UserInfo userInfo) throws Exception{
+
+		String query = "UPDATE user_info SET  user_name = ?, user_address = ?, user_email = ?, user_contact = ?, user_dof = ?, balance = ?, user_password = ?, user_id = ? WHERE  id= ? ";
+
+	
+		Object args[] = new Object[9];
+		args[0] = userInfo.getUser_name(); 
+		args[1] = userInfo.getUser_address(); 
+		args[2] = userInfo.getUser_email(); 
+		args[3] = userInfo.getUser_contact(); 
+		args[4] = userInfo.getUser_dof(); 
+		args[5] = userInfo.getBalance(); 
+		args[6] = userInfo.getUser_password(); 
+		args[7] = userInfo.getUser_id(); 
+		args[8] = userInfo.getId();
+	
+
+		int types[] = new int[]{ Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.DATE, Types.INTEGER, Types.VARCHAR, Types.INTEGER, Types.INTEGER };
+
+		jdbcTemplate.update(query, args, types);
+	}
+
+	public void deleteUserInfo( String  id) {
+
+		int idvar = Integer.parseInt(id);
+
+		String query = "DELETE FROM user_info WHERE id = ?";
+
+		Object args[] = new Object[]{ idvar };
+
+		int types[] = new int[] { Types.INTEGER};
+		jdbcTemplate.update(query, args, types);
+	}
+
+	public List<UserInfo> getListUserInfo() {
+
+		String query = "SELECT  id, user_name, user_address, user_email, user_contact, user_dof, balance, user_password, user_id FROM user_info";
+
+		return jdbcTemplate.query(query, new UserInfoRowMapper());
+	}
+
+
+	public UserInfo getUserInfo( int id ){
+
+		UserInfoMappingSqlQuery UserInfoQry = new UserInfoMappingSqlQuery(dataSource);		
+		
+		Object[] params = new Object[1];
+		params[0] = id ;
+	
+		List recordlist = UserInfoQry.execute(params);
+
+		if(recordlist.size() > 0 ){
+			return (UserInfo) recordlist.get(0);
+		} else {
+			return null;
+		} 
+
+	}
+
+	/**
+	 * @param dataSource the dataSource to set
+	 */
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+
+	/**
+	 * @param jdbcTemplate the jdbcTemplate to set
+	 */
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+}//UserInfoDaoImpl

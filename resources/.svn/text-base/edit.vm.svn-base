@@ -1,0 +1,138 @@
+<%@ page session="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="/spring"%>
+
+<!-- Author : Muhammad Saifuddin-->
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>${jspName}</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="./style/dusplic.css" rel="stylesheet" type="text/css" />
+<script language ="javascript">
+
+function modify(){
+
+	alert('inside modify');
+	
+	document.editForm.action = "${beanName}_edit.htm";
+	document.editForm.submit();
+}//modify
+
+function list(){
+	
+	alert('inside list');
+	var method ="list${beanName}";
+	document.editForm.method = "GET";
+	document.editForm.action="${beanName}_list.htm?action"+method;
+	document.editForm.submit();
+
+}
+
+</script>
+</head>
+<body>
+<div id="header">
+	<h3>My Spring Application</h3>
+	<h2><a href="http://www.springframework.org">springframework.org</a></h2>
+</div>
+<div id="content">
+<div id="posts">
+				<div class="post">
+			<h2 class="title">${jspName}</h2>
+			<div class="story">
+<form name="editForm" action="" method="post">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+
+#foreach ($columnDetail in ${columnDetails})
+ #if(${columnDetail.jstlGetExpr}== "{record.id}")
+	  <tr>
+	  <td><b>${columnDetail.columnJavaName} :</b></td>
+        <td><spring:bind path="record.${columnDetail.columnName}"> 
+			<c:out value="${status.value}"/>
+	  </spring:bind></td>
+      </tr>
+#end#end
+#foreach ($columnDetail in ${columnDetails})    
+	  #if(${columnDetail.jstlGetExpr}!= "{record.id}")
+	  <tr>
+	  <td><b>${columnDetail.columnJavaName} :</b></td>
+        <td><spring:bind path="record.${columnDetail.columnName}">
+	  <input type="text" name="<c:out value ="${status.expression}"/>" 
+			value="<c:out value="${status.value}"/>">
+	  </spring:bind></td>
+      </tr>
+	#end
+#end      
+    </table>
+	<br />
+	<table><tr></tr>
+	<tr>
+	<td><input type="submit" name="submit" value=" Update Record"/></td>
+    <td><input type="button" name="cancel" value="Cancel" onclick="list();"/></td>
+    </tr>
+	</table>
+  </form>
+
+			</div>
+		</div>
+	</div>
+	<div id="archives" class="boxed">
+		<h2 class="heading">Archives</h2>
+		<div class="content">
+			<ul>
+				<li><a href="#">February</a> (7) </li>
+				<li><a href="#">January 2007</a> (31)</li>
+				<li><a href="#">December 2006</a> (31)</li>
+				<li><a href="#">November 2006</a> (30)</li>
+				<li><a href="#">October 2006</a> (31)</li>
+				<li><a href="#">September 2006</a> (30)</li>
+				<li><a href="#">August 2006</a> (31)</li>
+				<li><a href="#">July 2006</a> (31)</li>
+				<li><a href="#">June 2006</a> (30)</li>
+			</ul>
+		</div>
+	</div>
+	<div id="categories" class="boxed">
+		<h2 class="heading">Categories</h2>
+		<div class="content">
+			<ul>
+				<li><a href="#">Quisque vestibulum</a></li>
+				<li><a href="#">Sed a nisl a lacus</a></li>
+				<li><a href="#">Quisque sagittis</a></li>
+				<li><a href="#">Etiam volutpat</a></li>
+				<li><a href="#">In aliquet hendrerit</a></li>
+				<li><a href="#">Suspendisse iaculis</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="blogroll" class="boxed">
+		<h2 class="heading">Blogroll</h2>
+		<div class="content">
+			<ul>
+				<li><a href="#">AnotherFriendlySite.net</a></li>
+				<li><a href="#">CoolSite.com</a></li>
+				<li><a href="#">MyBestFriend.com</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="pages" class="boxed">
+		<h2 class="heading">Pages</h2>
+		<div class="content">
+			<ul>
+				<li><a href="#">My Blog</a></li>
+				<li><a href="#">My Photos</a></li>
+				<li><a href="#">My Favorites</a></li>
+				<li><a href="#">About Me</a></li>
+				<li><a href="#">Contact Me</a></li>
+			</ul>
+		</div>
+	</div>
+	</div>
+<div id="footer">
+	<p>Copyright &copy; 2006 Dusplic. Designed by <a href="http://www.freecsstemplates.org/"><strong>Free CSS Templates</strong></a> | <a href="http://validator.w3.org/check/referer" title="This page validates as XHTML 1.0 Transitional">Valid <abbr title="eXtensible HyperText Markup Language">XHTML</abbr></a></p>
+</div>
+</body>
+</html>

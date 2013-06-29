@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/jwag/!svn/ver/40/trunk/resources
+END
+webXml.vm
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/jwag/!svn/ver/7/trunk/resources/webXml.vm
+END
+beanTemplate.vm
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/jwag/!svn/ver/7/trunk/resources/beanTemplate.vm
+END
+MappingSqlQuery.vm
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/jwag/!svn/ver/40/trunk/resources/MappingSqlQuery.vm
+END
+Dao.vm
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/jwag/!svn/ver/7/trunk/resources/Dao.vm
+END
+view.vm
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/jwag/!svn/ver/40/trunk/resources/view.vm
+END
+list.vm
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/jwag/!svn/ver/40/trunk/resources/list.vm
+END
+RowMapper.vm
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/jwag/!svn/ver/7/trunk/resources/RowMapper.vm
+END
+EditFormController.vm
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/jwag/!svn/ver/7/trunk/resources/EditFormController.vm
+END
+AddFormController.vm
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/jwag/!svn/ver/7/trunk/resources/AddFormController.vm
+END
+ActionController.vm
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/jwag/!svn/ver/7/trunk/resources/ActionController.vm
+END
+indexJsp.vm
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/jwag/!svn/ver/7/trunk/resources/indexJsp.vm
+END
+servlet.vm
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/jwag/!svn/ver/7/trunk/resources/servlet.vm
+END
+DaoImpl.vm
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/jwag/!svn/ver/40/trunk/resources/DaoImpl.vm
+END
+edit.vm
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/jwag/!svn/ver/7/trunk/resources/edit.vm
+END
+add.vm
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/jwag/!svn/ver/7/trunk/resources/add.vm
+END

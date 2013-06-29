@@ -1,0 +1,21 @@
+package com.project.dao;
+
+import com.project.bean.UserInfo;
+import java.util.List;
+
+public interface UserInfoDao{
+
+	
+	public UserInfo insertUserInfo ( UserInfo userInfo )throws Exception;
+	
+	public void updateUserInfo (UserInfo userInfo)throws Exception;
+	
+	public void deleteUserInfo (String id);
+	
+	public List<UserInfo> getListUserInfo();
+	
+	public UserInfo getUserInfo(int id);
+	
+}
+	
+	

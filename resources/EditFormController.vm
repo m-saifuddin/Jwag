@@ -1,0 +1,83 @@
+
+package ${packageName};
+
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.SimpleFormController;
+import sun.beans.editors.IntEditor;
+import javax.servlet.http.HttpServletRequest;
+import ${projectPackage}.bean.${beanName};
+import ${projectPackage}.dao.${daoName};
+
+#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnJavaType} == "Date")
+import java.text.SimpleDateFormat;
+import java.util.Date;
+#end#end
+
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+
+public class ${controllerName} extends SimpleFormController {
+	
+	${daoName} ${daoObj};
+
+	public ${controllerName} () {
+	
+		setCommandClass(${projectPackage}.bean.${beanName}.class);
+		setCommandName("record");
+		setSuccessView("${beanName}_view");
+		setFormView("${beanName}_edit");
+	}
+	
+	@Override
+	public void initBinder(HttpServletRequest req, ServletRequestDataBinder binder) throws Exception {
+	
+		 binder.registerCustomEditor(Integer.class, new IntEditor());
+#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnJavaType} == "Date")
+		 binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd-MM-yyyy"), true));
+	#end#end}
+	/* this method calling a update${beanName} dao method for update record into data
+	 * based on command Object and calling another mehtod get${beanName} of dao
+	 * get retrieve the selected record and forward to getSuccessView page with  
+	 * returned ${beanObj} object 
+	 */
+	public ModelAndView onSubmit(Object command) throws Exception {
+	
+		${beanName} ${beanObj} = (${beanName})command;
+		${daoObj}.update${beanName}( ${beanObj} );
+		${beanObj} = ${daoObj}.get${beanName}( ${beanObj}.get#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName} == "id")${columnDetail.columnJavaName}#end#end());
+				
+		return new ModelAndView(getSuccessView(),"record",${beanObj});
+	}
+	
+	/* this method calling when this controller recieve GET request 
+	 * calling get${beanName} dao method for retreived record
+	 * based on request Object and return to the same page with  
+	 * returned record 
+	 */
+	protected Object formBackingObject(HttpServletRequest request) throws Exception {
+
+		int id = 0;
+	
+		if (request.getParameterValues("box") != null) {
+			String[] checkbox = request.getParameterValues("box");
+			id = Integer.parseInt(checkbox[0]);
+
+		}
+
+		${beanName} record = ${daoObj}.get${beanName}(id);
+
+	return record;
+	
+	}
+	
+	public void set${daoName}(${daoName} ${daoObj}) {
+	
+		this.${daoObj} = ${daoObj};
+
+	}
+}

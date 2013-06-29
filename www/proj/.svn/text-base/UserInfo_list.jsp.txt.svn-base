@@ -1,0 +1,203 @@
+<%@ page session="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
+<!-- Author : Muhammad Saifuddin-->
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>UserInfo_list</title>
+
+
+<script language ="javascript">
+
+function add(){
+
+	
+	document.listForm.method ="GET";
+	document.listForm.action = "UserInfo_add.htm";
+	document.listForm.submit();
+}
+
+function modify(){
+
+	var n = new Number();
+	var boolFlag = false;
+	n = document.listForm.box.length;
+
+				if(n>1) {
+					var counter =0;
+		  		  		for (var i=0;i<n;i++)
+				  		{
+				  			if(document.listForm.box[i].checked == true){
+					  			counter = counter++;
+						  		
+									if(counter >1){
+										alert('select only one record');
+										return;
+									} else{
+										boolFlag = true;
+										break;
+						  			}
+							}else{ }//else
+				  		}//for
+				}else{
+			  			if(document.listForm.box.checked == 1){
+						  	boolFlag = true;
+			  			}//if
+
+				}//else
+
+				if(boolFlag)
+				{
+						
+						document.listForm.method = "GET";
+						document.listForm.action = "UserInfo_edit.htm";
+						document.listForm.submit();
+
+				} else{
+					alert("Please select at least one personnel");
+			}//else
+	
+}//modify
+
+function dodelete(){
+
+	var n = new Number();
+	var boolFlag = false;
+	n = document.listForm.box.length;
+	
+				if(n>1) {
+					var counter =0;
+		  		  		for (var i=0;i<n;i++)
+				  		{
+				  			if(document.listForm.box[i].checked == true){
+					  			counter = counter++;
+						  		
+									if(counter >1){
+										alert('select only one record');
+										return;
+									} else{
+										boolFlag = true;
+										break;
+						  			}
+							}else{ }//else
+				  		}//for
+				}else{
+			  			if(document.listForm.box.checked == 1){
+						  	boolFlag = true;
+			  			}//if
+
+				}//else
+
+				if(boolFlag)
+				{
+					if(confirm("The record will permanently be deleted. Are you sure you want to delete")){
+
+						var method = "deleteUserInfo";
+						document.listForm.action = "UserInfo_list.htm?action="+method;
+						document.listForm.submit();
+					}
+
+				} else{
+					alert("Please select at least one personnel");
+			}//else
+}//dodelete
+
+
+function view(){
+	
+	var n = new Number();
+	var boolFlag = false;
+	n = document.listForm.box.length;
+	
+			if(n>1) {
+					var counter =0;
+		  		  		for (var i=0;i<n;i++)
+				  		{
+				  			if(document.listForm.box[i].checked == true){
+					  			counter = counter++;
+						  		
+									if(counter >1){
+										alert('select only one record');
+										return;
+									} else{
+										boolFlag = true;
+										break;
+						  			}
+							}else{ }//else
+				  		}//for
+			}else{
+			  		if(document.listForm.box.checked == 1){
+						  	boolFlag = true;
+			  		}//if
+
+			}//else
+
+				if(boolFlag)
+				{
+						var method = "viewUserInfo";
+						document.listForm.action = "UserInfo_view.htm?action="+method;
+						document.listForm.submit();
+						
+				} else{
+					alert("Please select at least one personnel");
+			}//else
+}//view
+</script>
+</head>
+<body>
+<div id="header">
+	<h3>My Spring Application</h3>
+	<h2><a href="http://www.springframework.org">springframework.org</a></h2>
+</div>
+<div id="content">
+<div id="posts">
+				<div class="post">
+			<h2 class="title">UserInfo_list</h2>
+			<div class="story">
+<form name="listForm" action="" method="post">
+  <table cellspacing="0" cellpadding="0" border="1" width="100%">
+    <tr>
+	<th>&nbsp;</th>
+		<th>User_name</th>
+	<th>User_address</th>
+	<th>User_email</th>
+	<th>User_contact</th>
+	<th>User_dof</th>
+	<th>Balance</th>
+	<th>User_password</th>
+	<th>User_id</th>
+	<th>Select</th>
+    </tr>
+    <c:forEach items="${record}" var="record">
+    <tr>
+<td></td>
+<c:set var="id" value="${record.id}" />
+    	<td><c:out value="${record.user_name}"/></td>
+    	<td><c:out value="${record.user_address}"/></td>
+    	<td><c:out value="${record.user_email}"/></td>
+    	<td><c:out value="${record.user_contact}"/></td>
+    	<td><c:out value="${record.user_dof}"/></td>
+    	<td><c:out value="${record.balance}"/></td>
+    	<td><c:out value="${record.user_password}"/></td>
+    	<td><c:out value="${record.user_id}"/></td>
+		<td><input type="checkbox" name="box" value ="<c:out value = "${id}"/>" /></td>
+
+    </tr>
+    </c:forEach>
+  </table>
+  <br/>
+<br/>
+<table>
+	<tr>
+		<td align="center"><input type="button" name="btnAdd" value=" Add " onclick="add();" /></td>
+		<td align="center"><input type="button" name="btnModify" value=" Modify " onclick="modify();" /></td>
+		<td align="center"><input type="button" name="btnDelete" value=" Delete " onclick="dodelete();" /></td>
+		<td align="center"><input type="button" name="btnView" value=" View " onclick="view();" /></td>
+	</tr>
+</table>
+</form>
+		
+</body>
+</html>

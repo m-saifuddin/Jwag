@@ -1,0 +1,147 @@
+package ${packageName};
+
+import java.sql.Types;
+import java.util.List;
+import javax.sql.DataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import ${projectPackage}.bean.${beanName};
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+ 
+public class ${daoName} implements ${beanName}Dao {
+
+	private JdbcTemplate jdbcTemplate;
+	private DataSource dataSource;
+
+	/* Insert${beanName} Method takes on arugrement of 
+	 * ${beanName} bean type Object 
+	 * Inserting the records by setting ${beanName} bean
+	 * values into Object args and set args types 
+	 * into types integer array and call jdbcTemplate.update
+	 * method to insert the values and finally return ${beanObj}
+	 * Object
+	 */
+	public ${beanName} insert${beanName}(${beanName} ${beanObj}) throws Exception{
+	#set($elem = "?")
+	#set($flag = "false")
+
+		String query = "INSERT INTO ${tableName} (#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}!= "id" && ${columnDetail.columnName}!= "ID")#if($flag == "false")#set($flag = "true")#elseif($flag == "true"),#end ${columnDetail.columnName}#end#end )VALUES(#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}!= "id" && ${columnDetail.columnName}!= "ID")#if($flag == "true")#set($flag = "false") #elseif($flag == "false"),#end $elem#end#end)";
+
+	#set($getsize =${beanSize})
+	#set($size = $getsize - 1)
+	#set($count = -1)
+	Object args[] = new Object[$size];
+	#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}!= "id" && ${columnDetail.columnName}!= "ID")
+	#set($count = $count + 1)
+	args[$count] = ${beanObj}.get${columnDetail.columnJavaName}(); 
+	#end#end
+
+		int types[] = new int[]{#foreach($columnDetail in ${columnDetails})#set($columnName = ${columnDetail.columnName})#if(${columnName}!= "id" && ${columnName}!= "ID")#if($flag == "false")#set($flag = "true")#elseif($flag == "true"),#end Types.#end#foreach($mapValue in ${columnTypelist})#if(${columnName}!= "id" && ${columnName}!= "ID")#if	(${mapValue.containsKey($columnName)})${mapValue.get(${columnName})}#end#end#end#end };
+
+		jdbcTemplate.update(query, args, types);
+
+	return ${beanObj};
+
+	}
+
+	/* update${beanName} Method takes on arugrement of 
+	 * ${beanName} bean type Object 
+	 * update the records by setting ${beanName} bean
+	 * values into Object args and set args types 
+	 * into types integer array and call jdbcTemplate.update
+	 * method for update the values
+	 */
+	public void update${beanName}(${beanName} ${beanObj}) throws Exception{
+
+#set($flag = "false")
+		String query = "UPDATE ${tableName} SET #foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}!= "id")#if($flag == "false")#set($flag = "true") #elseif($flag == "true"), #end${columnDetail.columnName} = $elem#end#end WHERE #foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}== "id") ${columnDetail.columnName}= $elem#end#end ";
+
+	
+	#set($count = -1)
+	Object args[] = new Object[${beanSize}];
+	#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}!= "id" && ${columnDetail.columnName}!= "ID")
+	#set($count = $count + 1)
+	args[$count] = ${beanObj}.get${columnDetail.columnJavaName}(); 
+	#end#end
+#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}== "id" || ${columnDetail.columnName}== "ID" )#set($beanSize = $beanSize - 1)
+	args[$beanSize] = ${beanObj}.get${columnDetail.columnJavaName}();
+	#end#end
+
+
+#set($flag = "false")
+		int types[] = new int[]{#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}!="id" && ${columnDetail.columnName}!="ID")#set($columnName = ${columnDetail.columnName})#if($flag == "false")#set($flag = "true")#elseif($flag == "true"),#end Types.#foreach($mapValue in ${columnTypelist})#if(${mapValue.containsKey($columnName)})${mapValue.get(${columnName})}#end#end#end#end#foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}=="id" || ${columnDetail.columnName}=="ID")#set($columnName = ${columnDetail.columnName})#if($flag == "false")#set($flag = "true") #elseif($flag == "true"),#end Types.#foreach($mapValue in ${columnTypelist})#if(${mapValue.containsKey($columnName)})${mapValue.get(${columnName})}#end#end#end#end };
+
+		jdbcTemplate.update(query, args, types);
+	}
+
+	/* delete${beanName} Method takes String type arugrement	 * 
+	 * set this id values into Object args and set args types 
+	 * into types integer array and call jdbcTemplate.update
+	 * method to delete the values
+	 */
+
+
+	public void delete${beanName}( String #foreach($columnDetail in ${columnDetails})#if(${columnDetail.columnName}== "id" || ${columnDetail.columnName}== "ID") ${columnDetail.columnName}) {
+
+		int ${columnDetail.columnName}var = Integer.parseInt(${columnDetail.columnName});
+
+		String query = "DELETE FROM ${tableName} WHERE ${columnDetail.columnName} = ?";
+
+		Object args[] = new Object[]{ ${columnDetail.columnName}var };
+
+		int types[] = new int[] { Types.#foreach($mapValue in ${columnTypelist})#if(${mapValue.containsKey(${columnDetail.columnName})})${mapValue.get(${columnDetail.columnName})}};#end#end
+
+		jdbcTemplate.update(query, args, types);
+	}
+
+	/* getList${beanName}Method calling jdbcTemplate.query
+	 * method to the selected record query into RowMapper Interface
+	 * RowMapper Interface is responsible for mapping a ResultSet row
+	 * to an Object to map a row to ${beanName} Object
+	 * and return list type of ${beanName}
+	 */
+	public List<${beanName}> getList${beanName}() {
+#set($flag = "false")
+
+		String query = "SELECT #foreach($selectedColumn in ${selectedColumnDetails})#if($flag == "false")#set($flag = "true") #elseif($flag == "true"), #end${selectedColumn.columnName}#end FROM ${tableName}";
+
+		return jdbcTemplate.query(query, new ${beanName}RowMapper());
+	}
+
+
+	public ${beanName} get${beanName}( int ${columnDetail.columnName} ){
+
+		${beanName}MappingSqlQuery ${beanName}Qry = new ${beanName}MappingSqlQuery(dataSource);		
+		
+		Object[] params = new Object[1];
+		params[0] = ${columnDetail.columnName} ;
+	
+		List recordlist = ${beanName}Qry.execute(params);
+
+		if(recordlist.size() > 0 ){
+			return (${beanName}) recordlist.get(0);
+		} else {
+			return null;
+		} 
+
+	}#end#end
+
+
+	/**
+	 * @param dataSource the dataSource to set
+	 */
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
+
+	/**
+	 * @param jdbcTemplate the jdbcTemplate to set
+	 */
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
+}//${daoName}

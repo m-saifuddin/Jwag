@@ -1,0 +1,35 @@
+
+package ${packageName};
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.springframework.jdbc.core.RowMapper;
+import ${projectPackage}.bean.${beanName};
+
+/**
+ * JWAG (Java Web Application Generator).
+ * @author Muhammad Saifuddin
+ */
+
+public class ${daoName} implements RowMapper {
+	
+	/*The RowMapper interface is responsible 
+	 * for mapping a ResultSet row to an
+	 * object. To map a row to ${beanObj} object
+	 * finally return ${beanObj} Object
+	 */
+	public Object mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+	
+		${beanName} ${beanObj} = new ${beanName}();
+	
+	#foreach($selectedColumn in ${selectedColumnDetails})
+	#if(${selectedColumn.columnJavaType} == "Integer")
+		${beanObj}.set${selectedColumn.columnJavaName}(resultSet.getInt("${selectedColumn.columnName}"));
+#else
+		${beanObj}.set${selectedColumn.columnJavaName}(resultSet.get${selectedColumn.columnJavaType}("${selectedColumn.columnName}"));
+#end#end
+
+
+	return ${beanObj};
+	}
+}
